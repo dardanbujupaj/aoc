@@ -1,4 +1,5 @@
 import { ensureFile } from "https://deno.land/std@0.170.0/fs/mod.ts";
+import "https://deno.land/std@0.170.0/dotenv/load.ts";
 
 const BASE_URL = "https://adventofcode.com";
 

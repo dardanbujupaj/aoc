@@ -1,5 +1,5 @@
 import { assertEquals } from "https://deno.land/std@0.168.0/testing/asserts.ts";
-import { getInput } from "./aoc.ts";
+import { getInput } from "../lib/aoc.ts";
 
 
 const input = await getInput(7, 2022);
