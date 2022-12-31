@@ -1,42 +1,8 @@
 import { assertEquals } from "https://deno.land/std@0.168.0/testing/asserts.ts";
 import { getInput } from "../lib/aoc.ts";
+import { Grid } from "../lib/grid.ts";
 
 const input = await getInput(8, 2022);
-
-type Point = { x: number; y: number };
-class Grid<T> {
-  width: number;
-  height: number;
-  data: T[];
-
-  constructor(width: number, height: number, data: T[]) {
-    this.width = width;
-    this.height = height;
-    this.data = data;
-  }
-
-  static withInitialValue<T>(width: number, height: number, initialValue: T) {
-    const data = Array.from(Array(width * height).map((_) => initialValue));
-    return new Grid(width, height, data);
-  }
-
-  get(point: Point) {
-    return this.data[point.y * this.width + point.x];
-  }
-
-  set(point: Point, value: T) {
-    this.data[point.y * this.width + point.x] = value;
-  }
-
-  contains(point: Point) {
-    return (
-      point.x >= 0 &&
-      point.x < this.width &&
-      point.y >= 0 &&
-      point.y < this.height
-    );
-  }
-}
 
 const parseInput = (input: string) => {
   const lines = input.split("\n");
