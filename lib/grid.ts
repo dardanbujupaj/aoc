@@ -1,4 +1,6 @@
-export type Point = { x: number; y: number };
+import { Vector } from "./vector.ts";
+
+export type Point = Vector
 
 export class Grid<T> {
   width: number;
@@ -12,7 +14,7 @@ export class Grid<T> {
   }
 
   static withInitialValue<T>(width: number, height: number, initialValue: T) {
-    const data = Array.from(Array(width * height).map((_) => initialValue));
+    const data = Array.from(Array(width * height)).map((_) => initialValue);
     return new Grid(width, height, data);
   }
 
