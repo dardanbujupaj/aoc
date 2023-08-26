@@ -1,5 +1,5 @@
-import { assertEquals } from "https://deno.land/std@0.168.0/testing/asserts.ts";
-import { getInput } from "../lib/aoc.ts";
+import assert from "assert";
+import { getInput } from "../lib/aoc";
 
 const input = await getInput(10, 2022);
 
@@ -197,14 +197,11 @@ noop
 noop
 noop`;
 
-Deno.test("Test part 1", () => {
-  assertEquals(part_1(TEST_INPUT), "13140");
-});
+assert.equal(part_1(TEST_INPUT), "13140");
 
-Deno.test("Test part 2", () => {
-  assertEquals(
-    part_2(TEST_INPUT),
-    `
+assert.equal(
+  part_2(TEST_INPUT),
+  `
 ##..##..##..##..##..##..##..##..##..##..
 ###...###...###...###...###...###...###.
 ####....####....####....####....####....
@@ -212,5 +209,4 @@ Deno.test("Test part 2", () => {
 ######......######......######......####
 #######.......#######.......#######.....
 `
-  );
-});
+);

@@ -1,5 +1,5 @@
-import { assertEquals } from "https://deno.land/std@0.168.0/testing/asserts.ts";
-import { getInput } from "../lib/aoc.ts";
+import assert from "assert";
+import { getInput } from "../lib/aoc";
 
 const input = await getInput(13, 2022);
 
@@ -72,9 +72,6 @@ const part_2 = (input: string) => {
   return `${decoderKey}`;
 };
 
-console.log(`Part 1: ${part_1(input)}`);
-console.log(`Part 2: ${part_2(input)}`);
-
 const TEST_INPUT = `[1,1,3,1,1]
 [1,1,5,1,1]
 
@@ -99,10 +96,8 @@ const TEST_INPUT = `[1,1,3,1,1]
 [1,[2,[3,[4,[5,6,7]]]],8,9]
 [1,[2,[3,[4,[5,6,0]]]],8,9]`;
 
-Deno.test("Test part 1", () => {
-  assertEquals(part_1(TEST_INPUT), "13");
-});
+assert.equal(part_1(TEST_INPUT), "13");
+console.log(`Part 1: ${part_1(input)}`);
 
-Deno.test("Test part 2", () => {
-  assertEquals(part_2(TEST_INPUT), "140");
-});
+assert.equal(part_2(TEST_INPUT), "140");
+console.log(`Part 2: ${part_2(input)}`);

@@ -1,5 +1,5 @@
-import { assertEquals } from "https://deno.land/std@0.168.0/testing/asserts.ts";
-import { getInput } from "../lib/aoc.ts";
+import assert from "assert";
+import { getInput } from "../lib/aoc";
 
 const input = await getInput(11, 2022);
 
@@ -32,7 +32,10 @@ class Monkey {
   }
 
   turn(monkeys: Monkey[], reduceWorry: boolean) {
-    const commonMultiple = monkeys.reduce((acc, curr) => lcm(acc, curr.test), 1);
+    const commonMultiple = monkeys.reduce(
+      (acc, curr) => lcm(acc, curr.test),
+      1
+    );
     while (this.items.length > 0) {
       this.inspections++;
 
@@ -42,7 +45,7 @@ class Monkey {
       if (reduceWorry) {
         worry = Math.floor(worry / 3);
       } else {
-        worry = worry % commonMultiple
+        worry = worry % commonMultiple;
       }
       const target =
         worry % this.test == 0 ? this.trueTarget : this.falseTarget;
@@ -89,9 +92,6 @@ const part_2 = (input: string) => {
     .toString();
 };
 
-console.log(`Part 1: ${part_1(input)}`);
-console.log(`Part 2: ${part_2(input)}`);
-
 const TEST_INPUT = `Monkey 0:
 Starting items: 79, 98
 Operation: new = old * 19
@@ -120,10 +120,8 @@ Test: divisible by 17
   If true: throw to monkey 0
   If false: throw to monkey 1`;
 
-Deno.test("Test part 1", () => {
-  assertEquals(part_1(TEST_INPUT), "10605");
-});
+assert.equal(part_1(TEST_INPUT), "10605");
+console.log(`Part 1: ${part_1(input)}`);
 
-Deno.test("Test part 2", () => {
-  assertEquals(part_2(TEST_INPUT), "2713310158");
-});
+assert.equal(part_2(TEST_INPUT), "2713310158");
+console.log(`Part 2: ${part_2(input)}`);

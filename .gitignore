@@ -1,2 +1,4 @@
+node_modules/
 .input/
-.env
+.env.local
+.DS_Store

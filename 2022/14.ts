@@ -1,7 +1,7 @@
-import { assertEquals } from "https://deno.land/std@0.168.0/testing/asserts.ts";
-import { getInput } from "../lib/aoc.ts";
-import { Grid } from "../lib/grid.ts";
-import { add, equals } from "../lib/vector.ts";
+import assert from "assert";
+import { getInput } from "../lib/aoc";
+import { Grid } from "../lib/grid";
+import { add, equals } from "../lib/vector";
 
 const input = await getInput(14, 2022);
 
@@ -126,16 +126,11 @@ const part_2 = (input: string) => {
   return `${count}`;
 };
 
-console.log(`Part 1: ${part_1(input)}`);
-console.log(`Part 2: ${part_2(input)}`);
-
 const TEST_INPUT = `498,4 -> 498,6 -> 496,6
 503,4 -> 502,4 -> 502,9 -> 494,9`;
 
-Deno.test("Test part 1", () => {
-  assertEquals(part_1(TEST_INPUT), "24");
-});
+assert.equal(part_1(TEST_INPUT), "24");
+console.log(`Part 1: ${part_1(input)}`);
 
-Deno.test("Test part 2", () => {
-  assertEquals(part_2(TEST_INPUT), "93");
-});
+assert.equal(part_2(TEST_INPUT), "93");
+console.log(`Part 2: ${part_2(input)}`);

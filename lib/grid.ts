@@ -1,6 +1,6 @@
-import { Vector } from "./vector.ts";
+import { Vector } from "./vector";
 
-export type Point = Vector
+export type Point = Vector;
 
 export class Grid<T> {
   width: number;

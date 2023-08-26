@@ -1,6 +1,6 @@
-import { assertEquals } from "https://deno.land/std@0.168.0/testing/asserts.ts";
-import { getInput } from "../lib/aoc.ts";
-import { Grid } from "../lib/grid.ts";
+import assert from "assert";
+import { getInput } from "../lib/aoc";
+import { Grid } from "../lib/grid";
 
 const input = await getInput(8, 2022);
 
@@ -80,34 +80,31 @@ const part_2 = (input: string) => {
 
   for (let y = 0; y < grid.height; y++) {
     for (let x = 0; x < grid.width; x++) {
-      const height = grid.get({x, y})
+      const height = grid.get({ x, y });
       let score = 1;
       for (const direction of directions) {
-        const point = {x: x + direction.x, y: y + direction.y}
-        let visibleTrees = 0
+        const point = { x: x + direction.x, y: y + direction.y };
+        let visibleTrees = 0;
         while (grid.contains(point)) {
-          visibleTrees++
+          visibleTrees++;
 
           if (grid.get(point) >= height) {
-            break
+            break;
           }
 
-          point.x += direction.x
-          point.y += direction.y
+          point.x += direction.x;
+          point.y += direction.y;
         }
 
-        score *= visibleTrees
+        score *= visibleTrees;
       }
 
-      bestScore = Math.max(bestScore, score)
+      bestScore = Math.max(bestScore, score);
     }
   }
 
   return `${bestScore}`;
 };
-
-console.log(`Part 1: ${part_1(input)}`);
-console.log(`Part 2: ${part_2(input)}`);
 
 const TEST_INPUT = `30373
 25512
@@ -115,19 +112,8 @@ const TEST_INPUT = `30373
 33549
 35390`;
 
-Deno.test("Test parseInput", () => {
-  const input = `000
-111
-222`;
-  assertEquals(parseInput(input).data, [0, 0, 0, 1, 1, 1, 2, 2, 2]);
-  assertEquals(parseInput(input).width, 3);
-  assertEquals(parseInput(input).height, 3);
-});
+assert.equal(part_1(TEST_INPUT), "21");
+console.log(`Part 1: ${part_1(input)}`);
 
-Deno.test("Test part 1", () => {
-  assertEquals(part_1(TEST_INPUT), "21");
-});
-
-Deno.test("Test part 2", () => {
-  assertEquals(part_2(TEST_INPUT), "8");
-});
+assert.equal(part_2(TEST_INPUT), "8");
+console.log(`Part 2: ${part_2(input)}`);

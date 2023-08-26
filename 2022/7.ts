@@ -1,6 +1,5 @@
-import { assertEquals } from "https://deno.land/std@0.168.0/testing/asserts.ts";
-import { getInput } from "../lib/aoc.ts";
-
+import assert from "assert";
+import { getInput } from "../lib/aoc";
 
 const input = await getInput(7, 2022);
 
@@ -15,7 +14,6 @@ const addFile = (directory: Directory, size: number, name: string) => {
   directory.size += size;
   directory.parent && addFile(directory.parent, size, name);
 };
-
 
 const parseInput = (input: string) => {
   const root: Directory = {
@@ -53,7 +51,7 @@ const parseInput = (input: string) => {
       command
         .split("\n")
         .slice(1)
-        .filter(s => s.length) // skip empty
+        .filter((s) => s.length) // skip empty
         .forEach((entry) => {
           if (entry.startsWith("dir")) {
             const [, name] = entry.split(" ");
@@ -64,19 +62,18 @@ const parseInput = (input: string) => {
               directories: [],
             });
           } else {
-            const [size, name] = entry.split(" ")
-            addFile(currentDirectory, parseInt(size), name)
+            const [size, name] = entry.split(" ");
+            addFile(currentDirectory, parseInt(size), name);
           }
         });
     }
   });
 
-  return root
-
-}
+  return root;
+};
 
 const part_1 = (input: string) => {
-  const root = parseInput(input)
+  const root = parseInput(input);
 
   const queue = [];
   let size = 0;
@@ -91,37 +88,33 @@ const part_1 = (input: string) => {
     current = queue.pop();
   }
 
-  return size.toString()
+  return size.toString();
 };
 
 const part_2 = (input: string) => {
-  const root = parseInput(input)
+  const root = parseInput(input);
 
-  const missingSpace = 30000000 - (70000000 - root.size)
-  console.log("missing space ", missingSpace)
+  const missingSpace = 30000000 - (70000000 - root.size);
+  console.log("missing space ", missingSpace);
 
   const queue = [];
 
-  let candidate = root
+  let candidate = root;
 
   let current: Directory | undefined = root;
   while (current) {
     queue.push(...current.directories);
 
     if (current.size >= missingSpace && current.size < candidate.size) {
-      console.log(`new candidate: ${current.name}: ${current.size}`)
+      console.log(`new candidate: ${current.name}: ${current.size}`);
       candidate = current;
     }
 
     current = queue.pop();
   }
 
-  return candidate.size.toString()
+  return candidate.size.toString();
 };
-
-console.log(`Part 1: ${part_1(input)}`)
-console.log(`Part 2: ${part_2(input)}`)
-
 
 const TEST_INPUT = `$ cd /
 $ ls
@@ -147,10 +140,8 @@ $ ls
 5626152 d.ext
 7214296 k`;
 
-Deno.test("Test part 1", () => {
-  assertEquals(part_1(TEST_INPUT), "95437");
-});
+assert.equal(part_1(TEST_INPUT), "95437");
+console.log(`Part 1: ${part_1(input)}`);
 
-Deno.test("Test part 2", () => {
-  assertEquals(part_2(TEST_INPUT), "24933642");
-});
+assert.equal(part_2(TEST_INPUT), "24933642");
+console.log(`Part 2: ${part_2(input)}`);

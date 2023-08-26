@@ -1,12 +1,12 @@
-import { assertEquals, unreachable } from "https://deno.land/std@0.168.0/testing/asserts.ts";
-import { getInput } from "../lib/aoc.ts";
-import { Grid, Point } from "../lib/grid.ts";
+import assert from "assert";
+import { getInput } from "../lib/aoc";
+import { Grid, Point } from "../lib/grid";
 
 const input = (await getInput(12, 2022)).trim();
 
 type Cell = {
   height: number;
-  distance?: number
+  distance?: number;
 };
 
 const parseInput = (input: string) => {
@@ -88,7 +88,6 @@ const part_1 = (input: string) => {
       }
     }
   }
-  unreachable()!
 };
 
 const part_2 = (input: string) => {
@@ -128,11 +127,7 @@ const part_2 = (input: string) => {
       }
     }
   }
-  unreachable()!
 };
-
-console.log(`Part 1: ${part_1(input)}`);
-console.log(`Part 2: ${part_2(input)}`);
 
 const TEST_INPUT = `Sabqponm
 abcryxxl
@@ -140,10 +135,8 @@ accszExk
 acctuvwj
 abdefghi`;
 
-Deno.test("Test part 1", () => {
-  assertEquals(part_1(TEST_INPUT), "31");
-});
+assert.equal(part_1(TEST_INPUT), "31");
+console.log(`Part 1: ${part_1(input)}`);
 
-Deno.test("Test part 2", () => {
-  assertEquals(part_2(TEST_INPUT), "29");
-});
+assert.equal(part_2(TEST_INPUT), "29");
+console.log(`Part 2: ${part_2(input)}`);
