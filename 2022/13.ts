@@ -33,7 +33,7 @@ const compare = (left: Packet, right: Packet): number => {
 
     const comparison = compare(
       assureArray(leftElement),
-      assureArray(rightElement)
+      assureArray(rightElement),
     );
     if (comparison !== 0) {
       return comparison;

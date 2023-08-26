@@ -34,7 +34,7 @@ class Monkey {
   turn(monkeys: Monkey[], reduceWorry: boolean) {
     const commonMultiple = monkeys.reduce(
       (acc, curr) => lcm(acc, curr.test),
-      1
+      1,
     );
     while (this.items.length > 0) {
       this.inspections++;

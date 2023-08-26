@@ -51,7 +51,9 @@ const getPointForDataIndex = (index: number, width: number) => {
 const part_1 = (input: string) => {
   const [grid, start, end] = parseInput(input);
   console.log(
-    `Find shortest path from ${JSON.stringify(start)} to ${JSON.stringify(end)}`
+    `Find shortest path from ${JSON.stringify(start)} to ${JSON.stringify(
+      end,
+    )}`,
   );
 
   grid.get(start).distance = 0;

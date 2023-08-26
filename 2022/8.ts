@@ -9,7 +9,7 @@ const parseInput = (input: string) => {
   return new Grid(
     lines[0].length,
     lines.length,
-    lines.flatMap((l) => l.split("").map((n) => parseInt(n)))
+    lines.flatMap((l) => l.split("").map((n) => parseInt(n))),
   );
 };
 

@@ -13,6 +13,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "bun-types": "^0.7.0"
+    "bun-types": "^0.7.0",
+    "prettier": "^3.0.2"
   }
 }

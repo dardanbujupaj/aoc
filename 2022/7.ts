@@ -38,7 +38,7 @@ const parseInput = (input: string) => {
           break;
         default:
           nextDirectory = currentDirectory.directories.find(
-            (d) => d.name === dirname
+            (d) => d.name === dirname,
           );
       }
       if (nextDirectory) {
