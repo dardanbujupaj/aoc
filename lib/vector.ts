@@ -8,7 +8,19 @@ export const add = (a: Vector, b: Vector) => ({
   y: a.y + b.y,
 });
 
+export const subtract = (a: Vector, b: Vector) => ({
+  x: a.x - b.x,
+  y: a.y - b.y,
+});
+
 export const equals = (a: Vector, b: Vector) => a.x === b.x && a.y === b.y;
+
+export const angle = (v: Vector) => {
+  let angle = Math.atan2(v.y, v.x);
+
+  if (angle < 0) return 2 * Math.PI + angle;
+  return angle;
+};
 
 export const manhatten = (a: Vector, b: Vector) =>
   Math.abs(a.x - b.x) + Math.abs(a.y - b.y);

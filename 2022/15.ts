@@ -29,7 +29,7 @@ const parseInput = (input: string) => {
 
       return new Area(
         { x: values[0], y: values[1] },
-        { x: values[2], y: values[3] }
+        { x: values[2], y: values[3] },
       );
     });
 };
@@ -76,7 +76,7 @@ const part_1 = (input: string, offset = 2000000) => {
 const part_2 = (input: string, extent = 4_000_000) => {
   const areas = parseInput(input);
   for (let y = 0; y < extent; y++) {
-    const row = [0, extent] as Range
+    const row = [0, extent] as Range;
     areas
       .flatMap((area) => {
         const verticalDistance = Math.abs(area.center.y - y);
@@ -91,7 +91,7 @@ const part_2 = (input: string, extent = 4_000_000) => {
         }
         return [];
       })
-      .sort((a, b) => a.0 - b.0)
+      .sort((a, b) => a[0] - b[0])
       .reduce((previous, current) => {
         const ranges = [current];
 
@@ -113,19 +113,19 @@ const part_2 = (input: string, extent = 4_000_000) => {
       })
       .filter((r) => r)
       .forEach((r) => {
-        const range = r!
+        const range = r!;
         if (range[0] === row[0]) {
-          row[0] = range[1]
+          row[0] = range[1];
         } else if (range[1] === row[1]) {
-          row[1] = range[0]
+          row[1] = range[0];
         } else {
-          console.log("???")
-          console.log(range, row)
+          console.log("???");
+          console.log(range, row);
         }
-      }) // this should not be needed after filter...
-      if (row[0] === row[1]) {
-        console.log(row)
-      }
+      }); // this should not be needed after filter...
+    if (row[0] === row[1]) {
+      console.log(row);
+    }
   }
 
   return `${0}`;

@@ -1,19 +1,23 @@
 {
-  "name": "aoc-ts",
-  "version": "1.0.0",
+  "name": "Advent of Code",
   "description": "",
-  "main": "main.ts",
-  "directories": {
-    "lib": "lib"
-  },
+  "type": "module",
+  "module": "main.ts",
   "scripts": {
+    "aoc": "bun run main.ts",
     "start": "bun run main.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "bun-types": "^0.7.0",
-    "prettier": "^3.0.2"
+    "bun-types": "1.0.4",
+    "prettier": "3.0.3"
+  },
+  "peerDependencies": {
+    "typescript": "5.2.0"
+  },
+  "dependencies": {
+    "commander": "11.0.0"
   }
 }

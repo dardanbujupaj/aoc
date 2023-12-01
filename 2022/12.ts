@@ -1,6 +1,7 @@
+import { Vector } from "@/lib/vector";
 import assert from "assert";
 import { getInput } from "../lib/aoc";
-import { Grid, Point } from "../lib/grid";
+import { Grid } from "../lib/grid";
 
 const input = (await getInput(12, 2022)).trim();
 
@@ -12,8 +13,8 @@ type Cell = {
 const parseInput = (input: string) => {
   const lines = input.split("\n");
 
-  let start: Point;
-  let end: Point;
+  let start: Vector;
+  let end: Vector;
 
   const data = lines
     .flatMap((l) => l.split(""))

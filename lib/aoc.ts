@@ -1,4 +1,5 @@
 import { readFile, writeFile, mkdir } from "fs/promises";
+import {} from "bun:sqlite";
 
 const BASE_URL = "https://adventofcode.com";
 const CACHE_DIR = ".input";
@@ -15,6 +16,11 @@ export const getInput = async (day: number, year: number) => {
     const response = await fetch(`${BASE_URL}/${year}/day/${day}/input`, {
       headers: { Cookie: `session=${process.env.AOC_SESSION}` },
     });
+
+    if (!response.ok)
+      throw Error(
+        `Download failed: ${response.status} - ${response.statusText}`,
+      );
 
     const input = await response.text();
 

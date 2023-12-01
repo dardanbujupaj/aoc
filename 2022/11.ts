@@ -1,5 +1,5 @@
 import assert from "assert";
-import { getInput } from "../lib/aoc";
+import { getInput } from "@/lib/aoc";
 
 const input = await getInput(11, 2022);
 
