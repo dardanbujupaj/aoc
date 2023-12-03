@@ -3,15 +3,15 @@ import { isNativeError } from "util/types";
 
 export function gcd(a: number, b: number): number {
   return !b ? a : gcd(b, a % b);
-};
+}
 
 export function lcm(a: number, b: number) {
   return (a * b) / gcd(a, b);
-};
+}
 
 export function gauss(n: number) {
   (n * (n + 1)) / 2;
-};
+}
 
 export function range(from: number, to: number) {
   const difference = to - from;

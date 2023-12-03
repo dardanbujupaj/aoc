@@ -15,70 +15,79 @@ const SAMPLE_SOLUTION_PART_1 = 8;
 const SAMPLE_SOLUTION_PART_2 = 2286;
 
 function parseInput(input: string) {
-  return input.trim().split("\n")
+  return input
+    .trim()
+    .split("\n")
     .map((line) => {
-      const [id, description] = line.replace("Game ", "")
-        .split(": ");
+      const [id, description] = line.replace("Game ", "").split(": ");
 
       const hands = description.split("; ").map((cubes) => {
-        const hand: { red?: number, green?: number, blue?: number } = { red: undefined, green: undefined, blue: undefined }
+        const hand: { red?: number; green?: number; blue?: number } = {
+          red: undefined,
+          green: undefined,
+          blue: undefined,
+        };
         for (const cube of cubes.split(", ")) {
           const [count, color] = cube.split(" ") as [string, keyof typeof hand];
 
-          hand[color] = parseInt(count)
+          hand[color] = parseInt(count);
         }
-        return hand
-      })
-      return { id: parseInt(id), hands }
-    })
+        return hand;
+      });
+      return { id: parseInt(id), hands };
+    });
 }
 
 function part1(input: string) {
-  const redPool = 12
-  const greenPool = 13
-  const bluePool = 14
+  const redPool = 12;
+  const greenPool = 13;
+  const bluePool = 14;
 
   const data = parseInput(input);
 
-
-  return data.filter(({ id, hands }) => {
-    for (const hand of hands) {
-      if ((hand.red ?? 0) > redPool || (hand.green ?? 0) > greenPool || (hand.blue ?? 0) > bluePool) {
-        return false
+  return data
+    .filter(({ id, hands }) => {
+      for (const hand of hands) {
+        if (
+          (hand.red ?? 0) > redPool ||
+          (hand.green ?? 0) > greenPool ||
+          (hand.blue ?? 0) > bluePool
+        ) {
+          return false;
+        }
       }
-    }
 
-    return true
-  })
-    .reduce((acc, { id }) => acc + id, 0)
+      return true;
+    })
+    .reduce((acc, { id }) => acc + id, 0);
 }
 
 function part2(input: string) {
   const data = parseInput(input);
 
-  return data.map(({ hands }) => {
-    let pool = {
-      red: 0,
-      green: 0,
-      blue: 0
-    }
+  return data
+    .map(({ hands }) => {
+      let pool = {
+        red: 0,
+        green: 0,
+        blue: 0,
+      };
 
-    for (const hand of hands) {
-      if (hand.red && hand.red > pool.red) {
-        pool.red = hand.red
-      }
-      if (hand.green && hand.green > pool.green) {
-        pool.green = hand.green
-      }
-      if (hand.blue && hand.blue > pool.blue) {
-        pool.blue = hand.blue
+      for (const hand of hands) {
+        if (hand.red && hand.red > pool.red) {
+          pool.red = hand.red;
+        }
+        if (hand.green && hand.green > pool.green) {
+          pool.green = hand.green;
+        }
+        if (hand.blue && hand.blue > pool.blue) {
+          pool.blue = hand.blue;
+        }
       }
 
-    }
-
-    return pool.red * pool.green * pool.blue
-  })
-    .reduce((acc, sum) => acc + sum, 0)
+      return pool.red * pool.green * pool.blue;
+    })
+    .reduce((acc, sum) => acc + sum, 0);
 
   // TODO implement
   return 0;

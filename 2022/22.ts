@@ -87,29 +87,29 @@ function pointsOnLine(from: Vector, to: Vector) {
 }
 
 type Warp = {
-  target: Vector
-  rotation: string
-}
+  target: Vector;
+  rotation: string;
+};
 
 function createWarpMap(edges: typeof CUBE_EDGES) {
-  const warpMap = new Map<string, Warp>()
+  const warpMap = new Map<string, Warp>();
 
   for (const [start1, end1, start2, end2] of edges) {
+    const rotation =
+      angle(subtract(end2, start2)) - angle(subtract(end1, start1));
 
-    const rotation = angle(subtract(end2, start2)) - angle(subtract(end1, start1))
+    console.log(
+      `${JSON.stringify(start1)} - ${JSON.stringify(end1)} -> ${JSON.stringify(
+        start2,
+      )} - ${JSON.stringify(end2)}`,
+    );
+    console.log(rotation);
 
-    console.log(`${JSON.stringify(start1)} - ${JSON.stringify(end1)} -> ${JSON.stringify(start2)} - ${JSON.stringify(end2)}`)
-    console.log(rotation)
-
-
-    const segment1 = pointsOnLine(start1, end1)
-    const segment2 = pointsOnLine(start2, end2)
+    const segment1 = pointsOnLine(start1, end1);
+    const segment2 = pointsOnLine(start2, end2);
 
     for (let i = 0; i < segment1.length; i++) {
-      warpMap.set()
-      
-      
-
+      warpMap.set();
     }
   }
 }
@@ -129,7 +129,7 @@ function moveWithWarping(
   grid: MonkeyMap,
   direction: Direction,
   distance: number,
-  warp: any
+  warp: any,
 ) {
   let moved = 0;
   let position = structuredClone(from);
@@ -137,9 +137,8 @@ function moveWithWarping(
   do {
     let nextPosition = position;
 
-    if (grid.get(nextPosition) === ' ') {
+    if (grid.get(nextPosition) === " ") {
       // warp
-      
     }
 
     if (grid.get(nextPosition) !== "#") position = nextPosition;

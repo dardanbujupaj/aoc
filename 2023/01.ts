@@ -20,47 +20,58 @@ zoneight234
 const SAMPLE_SOLUTION_PART_1 = 142;
 const SAMPLE_SOLUTION_PART_2 = 281;
 
-
-const STRING_MATCHERS = ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine']
+const STRING_MATCHERS = [
+  "one",
+  "two",
+  "three",
+  "four",
+  "five",
+  "six",
+  "seven",
+  "eight",
+  "nine",
+];
 
 function parseInput(input: string, matchStrings = false) {
-  return input.trim().split("\n")
+  return input
+    .trim()
+    .split("\n")
     .map((line) => {
-      const numbers = []
+      const numbers = [];
 
       for (let i = 0; i < line.length; i++) {
-        const digit = parseInt(line.at(i)!)
+        const digit = parseInt(line.at(i)!);
         if (!isNaN(digit)) {
-          numbers.push(digit)
+          numbers.push(digit);
         } else if (matchStrings) {
           const slice = line.slice(i);
 
-          const match = STRING_MATCHERS.findIndex((matcher) => slice.startsWith(matcher))
+          const match = STRING_MATCHERS.findIndex((matcher) =>
+            slice.startsWith(matcher),
+          );
           if (match !== -1) {
-            numbers.push(match + 1)
+            numbers.push(match + 1);
           }
         }
       }
-      return numbers
+      return numbers;
     });
 }
 
 function part1(input: string) {
-  const data = parseInput(input)
+  const data = parseInput(input);
 
   return data.reduce((acc, numbers) => {
-    return acc + (numbers[0] * 10 + numbers[numbers.length - 1])
-  }, 0)
-
+    return acc + (numbers[0] * 10 + numbers[numbers.length - 1]);
+  }, 0);
 }
 
-
 function part2(input: string) {
-  const data = parseInput(input, true)
+  const data = parseInput(input, true);
 
   return data.reduce((acc, numbers) => {
-    return acc + (numbers[0] * 10 + numbers[numbers.length - 1])
-  }, 0)
+    return acc + (numbers[0] * 10 + numbers[numbers.length - 1]);
+  }, 0);
 }
 
 console.log(`AOC ${DAY} - ${YEAR}\n`);
