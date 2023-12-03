@@ -35,7 +35,7 @@ const command = new Command()
     }
 
     Bun.spawn({
-      cmd: ["bun", "run", watch ? "--watch" : "", `${year}/${day}.ts`],
+      cmd: ["bun", "run", watch ? "--watch" : "", target.name!],
       stdout: "inherit",
       stderr: "inherit",
     });
