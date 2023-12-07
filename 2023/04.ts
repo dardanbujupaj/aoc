@@ -16,25 +16,33 @@ const SAMPLE_SOLUTION_PART_1 = 13;
 const SAMPLE_SOLUTION_PART_2 = 30;
 
 function parseInput(input: string) {
-  return input.trim().split("\n")
+  return input
+    .trim()
+    .split("\n")
     .map((line) => {
-      return line.split(/[\:\|]/g)
+      return line
+        .split(/[\:\|]/g)
         .slice(1)
-        .map(numbers => numbers.trim().split(/\s+/).map(n => parseInt(n)))
-    })
+        .map((numbers) =>
+          numbers
+            .trim()
+            .split(/\s+/)
+            .map((n) => parseInt(n)),
+        );
+    });
 }
 
 function part1(input: string) {
   const data = parseInput(input);
 
   const values = data.map(([winning, actual]) => {
-    const matching = winning.filter(n => actual.includes(n))
+    const matching = winning.filter((n) => actual.includes(n));
     if (matching.length > 0) {
-      return Math.pow(2, matching.length - 1)
+      return Math.pow(2, matching.length - 1);
     } else {
-      return 0
+      return 0;
     }
-  })
+  });
 
   return values.reduce((a, b) => a + b, 0);
 }
@@ -42,20 +50,21 @@ function part1(input: string) {
 function part2(input: string) {
   const data = parseInput(input);
 
-  const maxMatches = data[0][0].length
+  const maxMatches = data[0][0].length;
 
-  const copies = data.map(([winning, actual]) => ({
-    matches: winning.filter(n => actual.includes(n)).length,
-    copies: 1
-  }))
+  const copies = data
+    .map(([winning, actual]) => ({
+      matches: winning.filter((n) => actual.includes(n)).length,
+      copies: 1,
+    }))
     .map((_, index, array) => {
       for (let i = Math.max(index - maxMatches, 0); i < index; i++) {
         if (i + array[i].matches >= index) {
-          array[index].copies += array[i].copies
+          array[index].copies += array[i].copies;
         }
       }
-      return array[index].copies
-    })
+      return array[index].copies;
+    });
 
   return copies.reduce((a, b) => a + b, 0);
 }
