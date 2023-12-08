@@ -80,7 +80,7 @@ function part1(input: string) {
 }
 
 function part2(input: string) {
-  const {seeds, maps} = parseInput(input);
+  const { seeds, maps } = parseInput(input);
 
   let minSeed = Number.MAX_SAFE_INTEGER;
 
