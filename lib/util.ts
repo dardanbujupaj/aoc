@@ -2,11 +2,15 @@ import { AssertionError } from "assert";
 import { isNativeError } from "util/types";
 
 export function gcd(a: number, b: number): number {
-  return !b ? a : gcd(b, a % b);
+  if (b === 0) {
+    return a;
+  }
+
+  return gcd(b, a % b);
 }
 
-export function lcm(a: number, b: number) {
-  return (a * b) / gcd(a, b);
+export function lcm(...numbers: number[]) {
+  return numbers.reduce((a, b) => a * b / gcd(a, b));
 }
 
 export function gauss(n: number) {

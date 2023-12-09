@@ -1,5 +1,5 @@
 import { getInput } from "@/lib/aoc";
-import { isAssertionError, time } from "@/lib/util";
+import { isAssertionError, lcm, time } from "@/lib/util";
 import { equal } from "assert";
 import { isNativeError } from "util/types";
 
@@ -65,17 +65,6 @@ function part1(input: string) {
 }
 
 
-function gcd(a: number, b: number): number {
-  if (b === 0) {
-    return a;
-  }
-
-  return gcd(b, a % b);
-}
-
-function lcm(...numbers: number[]) {
-  return numbers.reduce((a, b) => a * b / gcd(a, b));
-}
 
 function part2(input: string) {
   const { instructions, map } = parseInput(input);
