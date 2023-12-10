@@ -64,3 +64,25 @@ export class Grid<T> {
     );
   }
 }
+
+export function get8Neighbours(point: Vector) {
+  return [
+    { x: point.x - 1, y: point.y - 1 },
+    { x: point.x, y: point.y - 1 },
+    { x: point.x + 1, y: point.y - 1 },
+    { x: point.x - 1, y: point.y },
+    { x: point.x + 1, y: point.y },
+    { x: point.x - 1, y: point.y + 1 },
+    { x: point.x, y: point.y + 1 },
+    { x: point.x + 1, y: point.y + 1 },
+  ];
+}
+
+export function get4Neighbours(point: Vector) {
+  return [
+    { x: point.x, y: point.y - 1 },
+    { x: point.x - 1, y: point.y },
+    { x: point.x + 1, y: point.y },
+    { x: point.x, y: point.y + 1 },
+  ];
+}

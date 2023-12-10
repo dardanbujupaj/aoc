@@ -14,47 +14,53 @@ const SAMPLE_SOLUTION_PART_1 = 114;
 const SAMPLE_SOLUTION_PART_2 = 2;
 
 function parseInput(input: string) {
-  return input.trim().split("\n").map(line => line.split(" ").map(Number));
+  return input
+    .trim()
+    .split("\n")
+    .map((line) => line.split(" ").map(Number));
 }
 
 function extrapolate(data: number[]): number {
-  if (data.every(value => value === 0)) {
-    return 0
+  if (data.every((value) => value === 0)) {
+    return 0;
   }
 
-  const derivate = data.map((value, index) => {
-    if (index === 0) return 0;
-    return value - data[index - 1];
-  }).slice(1);
+  const derivate = data
+    .map((value, index) => {
+      if (index === 0) return 0;
+      return value - data[index - 1];
+    })
+    .slice(1);
 
   return data[data.length - 1] + extrapolate(derivate);
 }
 
-
 function extrapolateBack(data: number[]): number {
-  if (data.every(value => value === 0)) {
-    return 0
+  if (data.every((value) => value === 0)) {
+    return 0;
   }
 
-  const derivate = data.map((value, index) => {
-    if (index === 0) return 0;
-    return value - data[index - 1];
-  }).slice(1);
+  const derivate = data
+    .map((value, index) => {
+      if (index === 0) return 0;
+      return value - data[index - 1];
+    })
+    .slice(1);
 
   return data[0] - extrapolateBack(derivate);
 }
 
 function part1(input: string) {
   const data = parseInput(input);
-  return data.map(d => extrapolate(d))
-    .reduce((acc, curr) => acc + curr, 0);
+  return data.map((d) => extrapolate(d)).reduce((acc, curr) => acc + curr, 0);
 }
 
 function part2(input: string) {
   const data = parseInput(input);
 
-  return data.map(d => extrapolateBack(d))
-    .map(d => {
+  return data
+    .map((d) => extrapolateBack(d))
+    .map((d) => {
       return d;
     })
     .reduce((acc, curr) => acc + curr, 0);

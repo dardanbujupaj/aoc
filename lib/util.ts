@@ -10,7 +10,7 @@ export function gcd(a: number, b: number): number {
 }
 
 export function lcm(...numbers: number[]) {
-  return numbers.reduce((a, b) => a * b / gcd(a, b));
+  return numbers.reduce((a, b) => (a * b) / gcd(a, b));
 }
 
 export function gauss(n: number) {

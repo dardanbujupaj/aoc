@@ -16,81 +16,108 @@ QQQJA 483`;
 const SAMPLE_SOLUTION_PART_1 = 6440;
 const SAMPLE_SOLUTION_PART_2 = 5905;
 
-const CARDS =
-  [
-    'A', 'K', 'Q', 'J',
-    'T', '9', '8', '7',
-    '6', '5', '4', '3',
-    '2'
-  ] as const
+const CARDS = [
+  "A",
+  "K",
+  "Q",
+  "J",
+  "T",
+  "9",
+  "8",
+  "7",
+  "6",
+  "5",
+  "4",
+  "3",
+  "2",
+] as const;
 
-const CARDS_WITH_JOKER =
-  [
-    'A', 'K', 'Q',    'T', '9', '8', '7',
-    '6', '5', '4', '3',
-    '2', 'J'
-  ] as const
+const CARDS_WITH_JOKER = [
+  "A",
+  "K",
+  "Q",
+  "T",
+  "9",
+  "8",
+  "7",
+  "6",
+  "5",
+  "4",
+  "3",
+  "2",
+  "J",
+] as const;
 
 function parseInput(input: string) {
-  return input.trim().split("\n")
+  return input
+    .trim()
+    .split("\n")
     .map((line) => {
-      const [hand, bid] = line.split(" ")
+      const [hand, bid] = line.split(" ");
       return {
         hand,
-        bid: Number(bid)
+        bid: Number(bid),
       };
     });
 }
 
 function compareHand(a: string, b: string, withJoker = false) {
-  const typeA = handType(a, withJoker)
-  const typeB = handType(b, withJoker)
+  const typeA = handType(a, withJoker);
+  const typeB = handType(b, withJoker);
   if (typeA === typeB) {
-    let cards = withJoker ? CARDS_WITH_JOKER : CARDS
-    return a.split("").map(c => cards.indexOf(c as any).toString(16)).join("").localeCompare(b.split("").map(c => cards.indexOf(c as any).toString(16)).join(""))
+    let cards = withJoker ? CARDS_WITH_JOKER : CARDS;
+    return a
+      .split("")
+      .map((c) => cards.indexOf(c as any).toString(16))
+      .join("")
+      .localeCompare(
+        b
+          .split("")
+          .map((c) => cards.indexOf(c as any).toString(16))
+          .join(""),
+      );
   }
-  return typeB - typeA
+  return typeB - typeA;
 }
 
 function handType(hand: string, withJoker: boolean) {
   if (withJoker) {
-    hand = hand.replaceAll("J", "")
-    if (hand.length === 0) return 50
+    hand = hand.replaceAll("J", "");
+    if (hand.length === 0) return 50;
   }
 
-  const sortedByType = hand.split("")
-    .sort()
-    .join("")
+  const sortedByType = hand.split("").sort().join("");
 
   const sets = Array.from(sortedByType.matchAll(/(.)\1*/g))
     .map(([set]) => set.length)
     .sort()
-    .reverse()
+    .reverse();
 
-  return Number(`${sets[0] + (5 - hand.length)}${sets[1] ?? 0}`)
+  return Number(`${sets[0] + (5 - hand.length)}${sets[1] ?? 0}`);
 }
 
-
-
 function part1(input: string) {
-  const sortedHands = parseInput(input)
-    .sort((a, b) => compareHand(a.hand, b.hand))
+  const sortedHands = parseInput(input).sort((a, b) =>
+    compareHand(a.hand, b.hand),
+  );
 
   return sortedHands
     .map(({ bid }, index, array) => bid * (array.length - index))
-    .reduce((a, b) => a + b, 0)
+    .reduce((a, b) => a + b, 0);
 }
 
 function part2(input: string) {
-  const sortedHands = parseInput(input)
-    .sort((a, b) => compareHand(a.hand, b.hand, true))
-  console.log("Sorted hands:")
-  sortedHands.forEach(a => console.log(`${a.hand} ${handType(a.hand, true)}`))
+  const sortedHands = parseInput(input).sort((a, b) =>
+    compareHand(a.hand, b.hand, true),
+  );
+  console.log("Sorted hands:");
+  sortedHands.forEach((a) =>
+    console.log(`${a.hand} ${handType(a.hand, true)}`),
+  );
 
   return sortedHands
     .map(({ bid }, index, array) => bid * (array.length - index))
-    .reduce((a, b) => a + b, 0)
-
+    .reduce((a, b) => a + b, 0);
 }
 
 console.log(`AOC ${DAY} - ${YEAR}\n`);

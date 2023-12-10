@@ -43,19 +43,16 @@ const SAMPLE_SOLUTION_PART_1 = 35;
 const SAMPLE_SOLUTION_PART_2 = 46;
 
 function parseInput(input: string) {
-
-  const [[seeds], ...maps] = input.split(/\s*[a-z- ]+:\s*/).filter(s => s.length > 0)
-    .map(s => s.split("\n")
-      .map(s => s.split(/\s+/).map(Number))
-    );
+  const [[seeds], ...maps] = input
+    .split(/\s*[a-z- ]+:\s*/)
+    .filter((s) => s.length > 0)
+    .map((s) => s.split("\n").map((s) => s.split(/\s+/).map(Number)));
 
   return {
     seeds,
-    maps
-  }
+    maps,
+  };
 }
-
-
 
 function convertSeed(seed: number, maps: number[][][]) {
   let result = seed;
@@ -74,7 +71,7 @@ function convertSeed(seed: number, maps: number[][][]) {
 function part1(input: string) {
   const { seeds, maps } = parseInput(input);
 
-  const locations = seeds.map(s => convertSeed(s, maps));
+  const locations = seeds.map((s) => convertSeed(s, maps));
 
   return Math.min(...locations);
 }
@@ -85,17 +82,17 @@ function part2(input: string) {
   let minSeed = Number.MAX_SAFE_INTEGER;
 
   /**
-    * this should be forbidden, but i don't have time to implement a solution using the ranges
-    * and it only took 15 minutes to run... 
-    */
+   * this should be forbidden, but i don't have time to implement a solution using the ranges
+   * and it only took 15 minutes to run...
+   */
   for (let i = 0; i < seeds.length; i += 2) {
-    console.log(`range ${i}`)
+    console.log(`range ${i}`);
     for (let s = seeds[i]; s < seeds[i] + seeds[i + 1]; s++) {
-      minSeed = Math.min(minSeed, convertSeed(s, maps))
+      minSeed = Math.min(minSeed, convertSeed(s, maps));
     }
   }
 
-  return minSeed
+  return minSeed;
 }
 
 console.log(`AOC ${DAY} - ${YEAR}\n`);
