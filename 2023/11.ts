@@ -28,50 +28,53 @@ function remove<T>(array: T[], element: T) {
 }
 
 function parseInput(input: string, expansion = 2) {
-  const lines = input.trim().split("\n")
-  const width = lines[0].length
-  const height = lines.length
+  const lines = input.trim().split("\n");
+  const width = lines[0].length;
+  const height = lines.length;
 
-  const emptyColumns = Array.from({ length: width }, (_, index) => index)
-  const emptyRows = Array.from({ length: height }, (_, index) => index)
+  const emptyColumns = Array.from({ length: width }, (_, index) => index);
+  const emptyRows = Array.from({ length: height }, (_, index) => index);
 
-  const galaxies: Vector[] = []
+  const galaxies: Vector[] = [];
 
-  lines.flatMap(line => line.split(""))
+  lines
+    .flatMap((line) => line.split(""))
     .forEach((character, index) => {
-      const x = index % width
-      const y = Math.floor(index / width)
+      const x = index % width;
+      const y = Math.floor(index / width);
       if (character === "#") {
-        galaxies.push({ x, y })
+        galaxies.push({ x, y });
 
-        remove(emptyColumns, x)
-        remove(emptyRows, y)
+        remove(emptyColumns, x);
+        remove(emptyRows, y);
       }
-    })
+    });
 
-  galaxies.forEach(galaxy => {
-    galaxy.x += emptyColumns.filter(values => values < galaxy.x).length * (expansion - 1)
-    galaxy.y += emptyRows.filter(values => values < galaxy.y).length * (expansion - 1)
-  })
+  galaxies.forEach((galaxy) => {
+    galaxy.x +=
+      emptyColumns.filter((values) => values < galaxy.x).length *
+      (expansion - 1);
+    galaxy.y +=
+      emptyRows.filter((values) => values < galaxy.y).length * (expansion - 1);
+  });
 
-  return galaxies
+  return galaxies;
 }
 
 function part1(input: string) {
   const data = parseInput(input);
 
-  let distances = 0
+  let distances = 0;
 
   for (let a = 0; a < data.length; a++) {
-    const galaxyA = data[a]
+    const galaxyA = data[a];
     for (let b = a + 1; b < data.length; b++) {
-      const galaxyB = data[b]
-      const distance = manhatten(galaxyA, galaxyB)
+      const galaxyB = data[b];
+      const distance = manhatten(galaxyA, galaxyB);
 
-      distances += distance
+      distances += distance;
     }
   }
-
 
   return distances;
 }
@@ -79,18 +82,17 @@ function part1(input: string) {
 function part2(input: string) {
   const data = parseInput(input, 1_000_000);
 
-  let distances = 0
+  let distances = 0;
 
   for (let a = 0; a < data.length; a++) {
-    const galaxyA = data[a]
+    const galaxyA = data[a];
     for (let b = a + 1; b < data.length; b++) {
-      const galaxyB = data[b]
-      const distance = manhatten(galaxyA, galaxyB)
+      const galaxyB = data[b];
+      const distance = manhatten(galaxyA, galaxyB);
 
-      distances += distance
+      distances += distance;
     }
   }
-
 
   return distances;
 }
