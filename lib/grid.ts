@@ -63,6 +63,20 @@ export class Grid<T> {
       point.y < this.height
     );
   }
+
+  toString(cellMapper?: (cell: T) => string) {
+    let result = "";
+    for (let y = 0; y < this.height; y++) {
+      for (let x = 0; x < this.width; x++) {
+        const value = this.get({ x, y });
+
+        result += cellMapper?.(value) ?? value;
+      }
+      result += "\n";
+    }
+
+    return result;
+  }
 }
 
 export function get8Neighbours(point: Vector) {
