@@ -13,6 +13,18 @@ export const subtract = (a: Vector, b: Vector) => ({
   y: a.y - b.y,
 });
 
+export function dot(a: Vector, b: Vector) {
+  return a.x * b.x + a.y * b.y;
+}
+
+export function multiply(a: Vector, b: number) {
+  return { x: a.x * b, y: a.y * b };
+}
+
+export function mirror(a: Vector, b: Vector) {
+  return subtract(a, multiply(b, 2 * dot(a, b) / dot(b, b)));
+}
+
 export const equals = (a: Vector, b: Vector) => a.x === b.x && a.y === b.y;
 
 export const angle = (v: Vector) => {
