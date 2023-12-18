@@ -25,24 +25,26 @@ const SAMPLE_SOLUTION_PART_1 = 102;
 const SAMPLE_SOLUTION_PART_2 = 94;
 
 function parseInput(input: string) {
-
-  return Grid.parseWithMapper(input, Number)
-
+  return Grid.parseWithMapper(input, Number);
 }
 
 const DIRECTIONS = {
-  'N': { x: 0, y: -1 },
-  'E': { x: 1, y: 0 },
-  'S': { x: 0, y: 1 },
-  'W': { x: -1, y: 0 },
-} as const
+  N: { x: 0, y: -1 },
+  E: { x: 1, y: 0 },
+  S: { x: 0, y: 1 },
+  W: { x: -1, y: 0 },
+} as const;
 
 function opposite(direction: string) {
   switch (direction) {
-    case 'N': return 'S'
-    case 'E': return 'W'
-    case 'S': return 'N'
-    case 'W': return 'E'
+    case "N":
+      return "S";
+    case "E":
+      return "W";
+    case "S":
+      return "N";
+    case "W":
+      return "E";
   }
 }
 
@@ -57,17 +59,20 @@ function part2(input: string) {
   return findPath(grid, 4, 10);
 }
 
-function findPath(grid: ReturnType<typeof parseInput>, minStraight: number, maxStraight: number) {
-
+function findPath(
+  grid: ReturnType<typeof parseInput>,
+  minStraight: number,
+  maxStraight: number,
+) {
   const visited = new Set<string>();
 
-  const queue = [{ position: { x: 0, y: 0 }, loss: 0, direction: '' }];
+  const queue = [{ position: { x: 0, y: 0 }, loss: 0, direction: "" }];
 
   while (queue.length > 0) {
     const { position, loss, direction } = queue.shift()!;
 
     if (equals(position, { x: grid.width - 1, y: grid.height - 1 })) {
-      return loss
+      return loss;
     }
 
     const key = `${direction}${position.x},${position.y}`;
@@ -75,24 +80,29 @@ function findPath(grid: ReturnType<typeof parseInput>, minStraight: number, maxS
     if (visited.has(key)) continue;
     visited.add(key);
 
-
     for (const key in DIRECTIONS) {
       if (key === direction || key === opposite(direction)) continue;
 
       const newDirection = DIRECTIONS[key as keyof typeof DIRECTIONS];
 
-      let nextLoss = loss
+      let nextLoss = loss;
 
       for (let i = 1; i <= maxStraight; i++) {
-        const newPosition = add(position, { x: newDirection.x * i, y: newDirection.y * i });
+        const newPosition = add(position, {
+          x: newDirection.x * i,
+          y: newDirection.y * i,
+        });
         if (!grid.contains(newPosition)) break;
 
-
-        nextLoss += grid.get(newPosition)
+        nextLoss += grid.get(newPosition);
 
         if (i < minStraight) continue;
 
-        queue.splice(queue.findIndex((q) => q.loss > nextLoss), 0, { position: newPosition, loss: nextLoss, direction: key });
+        queue.splice(
+          queue.findIndex((q) => q.loss > nextLoss),
+          0,
+          { position: newPosition, loss: nextLoss, direction: key },
+        );
       }
     }
   }

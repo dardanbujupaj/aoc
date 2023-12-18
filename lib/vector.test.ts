@@ -10,5 +10,5 @@ test("basic angles", () => {
 });
 
 test("mirroring", () => {
-  expect(mirror({x: 1, y: 1}, {x: 1, y: 0})).toEqual({x: -1, y: 1})
-})
+  expect(mirror({ x: 1, y: 1 }, { x: 1, y: 0 })).toEqual({ x: -1, y: 1 });
+});

@@ -22,7 +22,7 @@ export function multiply(a: Vector, b: number) {
 }
 
 export function mirror(a: Vector, b: Vector) {
-  return subtract(a, multiply(b, 2 * dot(a, b) / dot(b, b)));
+  return subtract(a, multiply(b, (2 * dot(a, b)) / dot(b, b)));
 }
 
 export const equals = (a: Vector, b: Vector) => a.x === b.x && a.y === b.y;

@@ -34,11 +34,10 @@ export class TypedGrid<T extends GridType> {
 type Split<S extends string, D extends string> = string extends S
   ? string[]
   : S extends ""
-  ? []
-  : S extends `${infer T}${D}${infer U}`
-  ? [T, ...Split<U, D>]
-  : [S];
-
+    ? []
+    : S extends `${infer T}${D}${infer U}`
+      ? [T, ...Split<U, D>]
+      : [S];
 
 export class Grid<T> {
   width: number;
@@ -57,18 +56,21 @@ export class Grid<T> {
     const width = lines[0].length;
     const height = lines.length;
 
-    const data = lines.flatMap((line) => line.split("") as Split<Split<TInput, "\n">[number], "">[number][])
+    const data = lines.flatMap(
+      (line) =>
+        line.split("") as Split<Split<TInput, "\n">[number], "">[number][],
+    );
 
     return new Grid(width, height, data);
   }
-  
+
   static parseWithMapper<T>(input: string, mapper: (cell: string) => T) {
     const lines = input.trim().split("\n");
 
     const width = lines[0].length;
     const height = lines.length;
 
-    const data = lines.flatMap((line) => line.split("").map((c) => mapper(c)))
+    const data = lines.flatMap((line) => line.split("").map((c) => mapper(c)));
 
     return new Grid(width, height, data);
   }

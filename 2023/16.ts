@@ -22,7 +22,7 @@ const SAMPLE_SOLUTION_PART_1 = 46;
 const SAMPLE_SOLUTION_PART_2 = 51;
 
 function parseInput(input: string) {
-  return Grid.parse<typeof SAMPLE_INPUT>(input as any)
+  return Grid.parse<typeof SAMPLE_INPUT>(input as any);
 }
 
 function part1(input: string) {
@@ -31,42 +31,56 @@ function part1(input: string) {
   return energiseGrid(grid, { x: -1, y: 0 }, { x: 1, y: 0 });
 }
 
-
 function part2(input: string) {
   const grid = parseInput(input);
 
-  let maxEnergy = 0
+  let maxEnergy = 0;
 
   for (let x = 0; x < grid.width; x++) {
-    maxEnergy = Math.max(energiseGrid(grid, { x, y: -1 }, { x: 0, y: 1 }), maxEnergy);
-    maxEnergy = Math.max(energiseGrid(grid, { x, y: grid.height }, { x: 0, y: -1 }), maxEnergy);
+    maxEnergy = Math.max(
+      energiseGrid(grid, { x, y: -1 }, { x: 0, y: 1 }),
+      maxEnergy,
+    );
+    maxEnergy = Math.max(
+      energiseGrid(grid, { x, y: grid.height }, { x: 0, y: -1 }),
+      maxEnergy,
+    );
   }
 
   for (let y = 0; y < grid.height; y++) {
-    maxEnergy = Math.max(energiseGrid(grid, { x: -1, y }, { x: 1, y: 0 }), maxEnergy);
-    maxEnergy = Math.max(energiseGrid(grid, { x: grid.width, y }, { x: -1, y: 0 }), maxEnergy);
+    maxEnergy = Math.max(
+      energiseGrid(grid, { x: -1, y }, { x: 1, y: 0 }),
+      maxEnergy,
+    );
+    maxEnergy = Math.max(
+      energiseGrid(grid, { x: grid.width, y }, { x: -1, y: 0 }),
+      maxEnergy,
+    );
   }
 
   return maxEnergy;
 }
 
-function energiseGrid(grid: ReturnType<typeof parseInput>, position: Vector, direction: Vector) {
+function energiseGrid(
+  grid: ReturnType<typeof parseInput>,
+  position: Vector,
+  direction: Vector,
+) {
   const energyGrid = Grid.withInitialValue(grid.width, grid.height, 0);
 
   let visitedBeams = new Set<string>();
 
-  let beams: { position: Vector, direction: Vector }[] = [
+  let beams: { position: Vector; direction: Vector }[] = [
     {
       position,
       direction,
-    }
-  ]
+    },
+  ];
 
   while (beams.length > 0) {
     const nextBeams: typeof beams = [];
 
     for (const beam of beams) {
-
       const key = JSON.stringify(beam);
 
       if (visitedBeams.has(key)) {
@@ -76,7 +90,7 @@ function energiseGrid(grid: ReturnType<typeof parseInput>, position: Vector, dir
 
       const nextPosition = add(beam.position, beam.direction);
       if (!grid.contains(nextPosition)) {
-        continue
+        continue;
       }
 
       const nextElement = grid.get(nextPosition);
@@ -92,9 +106,12 @@ function energiseGrid(grid: ReturnType<typeof parseInput>, position: Vector, dir
             nextBeams.push(
               { position: nextPosition, direction: { x: 0, y: -1 } },
               { position: nextPosition, direction: { x: 0, y: 1 } },
-            )
+            );
           } else {
-            nextBeams.push({ position: nextPosition, direction: beam.direction });
+            nextBeams.push({
+              position: nextPosition,
+              direction: beam.direction,
+            });
           }
           break;
         }
@@ -102,17 +119,20 @@ function energiseGrid(grid: ReturnType<typeof parseInput>, position: Vector, dir
           nextBeams.push({
             position: nextPosition,
             direction: mirror(beam.direction, { x: 1, y: -1 }),
-          })
-          break
+          });
+          break;
         }
         case "-": {
           if (beam.direction.y !== 0) {
             nextBeams.push(
               { position: nextPosition, direction: { x: -1, y: 0 } },
               { position: nextPosition, direction: { x: 1, y: 0 } },
-            )
+            );
           } else {
-            nextBeams.push({ position: nextPosition, direction: beam.direction });
+            nextBeams.push({
+              position: nextPosition,
+              direction: beam.direction,
+            });
           }
           break;
         }
@@ -120,8 +140,8 @@ function energiseGrid(grid: ReturnType<typeof parseInput>, position: Vector, dir
           nextBeams.push({
             position: nextPosition,
             direction: mirror(beam.direction, { x: 1, y: 1 }),
-          })
-          break
+          });
+          break;
         }
       }
     }
